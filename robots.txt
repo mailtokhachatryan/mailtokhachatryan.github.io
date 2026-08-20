@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mailtokhachatryan.github.io/sitemap.xml

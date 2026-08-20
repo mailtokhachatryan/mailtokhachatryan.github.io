@@ -144,15 +144,22 @@ if (cursorDot && cursorRing) {
   });
 }
 
-// ===== Scroll Progress =====
+// ===== Scroll Progress & Back to Top =====
 const progressBar = document.querySelector('.scroll-progress');
+const backToTop = document.getElementById('back-to-top');
+
 window.addEventListener('scroll', () => {
   if (progressBar) {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     progressBar.style.width = `${(winScroll / height) * 100}%`;
   }
+  if (backToTop) backToTop.classList.toggle('visible', window.scrollY > 700);
 });
+
+if (backToTop) {
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
 
 // ===== Magnetic Buttons =====
 document.querySelectorAll('.magnetic').forEach(btn => {
