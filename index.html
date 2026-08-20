@@ -3,8 +3,19 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aghasi Khachatryan — Senior Java Software Engineer</title>
-  <meta name="description" content="Portfolio of Aghasi Khachatryan — Senior Java Software Engineer with 6+ years of experience in Java, Spring, Micronaut, Go, and cloud-native microservices."/>
+  <title>Aghasi Khachatryan — Senior Backend Engineer (Java &amp; Go)</title>
+  <meta name="description" content="Aghasi Khachatryan — Senior Backend Engineer with 6+ years in Java and Go. Distributed systems, microservices, REST and gRPC APIs, event-driven pipelines on AWS, Docker and Kubernetes. Download CV."/>
+  <link rel="canonical" href="https://mailtokhachatryan.github.io/"/>
+
+  <meta property="og:type" content="profile"/>
+  <meta property="og:title" content="Aghasi Khachatryan — Senior Backend Engineer (Java &amp; Go)"/>
+  <meta property="og:description" content="6+ years building distributed systems in Java and Go — microservices, REST and gRPC APIs, event-driven pipelines on AWS, Docker and Kubernetes."/>
+  <meta property="og:url" content="https://mailtokhachatryan.github.io/"/>
+  <meta property="og:image" content="https://mailtokhachatryan.github.io/assets/aghasi-khachatryan-og.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://mailtokhachatryan.github.io/assets/aghasi-khachatryan-og.jpg"/>
+
+  <link rel="icon" href="assets/aghasi-khachatryan.jpg"/>
   <link rel="stylesheet" href="src/styles.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
@@ -32,10 +43,11 @@
       <li><a href="#about" class="magnetic">About</a></li>
       <li><a href="#experience" class="magnetic">Experience</a></li>
       <li><a href="#projects" class="magnetic">Projects</a></li>
-      <li><a href="#tech" class="magnetic">Tech Stack</a></li>
+      <li><a href="#skills" class="magnetic">Skills</a></li>
+      <li><a href="#education" class="magnetic">Education</a></li>
       <li><a href="#contact" class="magnetic">Contact</a></li>
     </ul>
-    <button class="nav-toggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
   </div>
 </nav>
 
@@ -50,7 +62,7 @@
 
       <div class="hero-avatar-wrap" data-animate>
         <div class="hero-avatar-ring"></div>
-        <img src="https://github.com/mailtokhachatryan96.png" onerror="this.src='https://ui-avatars.com/api/?name=Aghasi+Khachatryan&background=6c9fff&color=fff&size=320&bold=true'" alt="Aghasi Khachatryan" class="hero-avatar"/>
+        <img src="assets/aghasi-khachatryan.jpg" width="160" height="160" alt="Portrait of Aghasi Khachatryan" class="hero-avatar"/>
       </div>
 
       <h1 data-animate>
@@ -64,10 +76,10 @@
       </div>
 
       <div class="hero-links" data-animate>
-        <a href="https://www.linkedin.com/in/aghasi-khachatryan-a07a6117a/" target="_blank" class="btn-primary magnetic"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="mailto:mailtokhachatryan96@gmail.com" class="btn-outline magnetic"><i class="fas fa-envelope"></i> Email</a>
+        <a href="Aghasi_Khachatryan_CV.pdf" download class="btn-primary magnetic"><i class="fas fa-file-arrow-down"></i> Download CV</a>
+        <a href="https://www.linkedin.com/in/aghasi-khachatryan-a07a6117a/" target="_blank" rel="noopener" class="btn-outline magnetic"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="mailto:aghasikhachatryan04@gmail.com" class="btn-outline magnetic"><i class="fas fa-envelope"></i> Email</a>
         <a href="tel:+37494657895" class="btn-outline magnetic"><i class="fas fa-phone"></i> Call</a>
-        <a href="Aghasi%20Khachatryan%20Java.pdf" download="Aghasi_Khachatryan_CV.pdf" class="btn-outline magnetic"><i class="fas fa-file-pdf"></i> Download CV</a>
       </div>
     </div>
 
@@ -75,15 +87,16 @@
       <div class="terminal-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
       <pre class="terminal-code font-mono"><span class="kw">public class</span> <span class="type">AghasiKhachatryan</span> {
 
-  <span class="kw">static final</span> <span class="type">String</span> <span class="field">ROLE</span> = <span class="str">"Senior Java Software Engineer"</span>;
-  <span class="kw">static final</span> <span class="type">String</span> <span class="field">COMPANY</span> = <span class="str">"OMD"</span>;
-  <span class="kw">static final</span> <span class="type">String</span> <span class="field">LOCATION</span> = <span class="str">"Yerevan, Armenia"</span>;
+  <span class="kw">static final</span> <span class="type">String</span> <span class="field">ROLE</span> = <span class="str">"Senior Backend Engineer"</span>;
+  <span class="kw">static final</span> <span class="type">String</span> <span class="field">COMPANY</span> = <span class="str">"OMD — Tick Data"</span>;
+  <span class="kw">static final</span> <span class="type">String</span> <span class="field">LOCATION</span> = <span class="str">"Yerevan, Armenia (UTC+4)"</span>;
   <span class="kw">static final int</span> <span class="field">YOE</span> = <span class="str">6</span>;
 
   <span class="type">List</span>&lt;<span class="type">String</span>&gt; <span class="field">focus</span> = <span class="type">List</span>.of(
-    <span class="str">"Java & Micronaut Microservices"</span>,
-    <span class="str">"Go Backend & gRPC"</span>,
-    <span class="str">"Cloud-Native Architecture"</span>
+    <span class="str">"Distributed Systems & Microservices"</span>,
+    <span class="str">"Java 21 · Micronaut · Spring Boot"</span>,
+    <span class="str">"Go Concurrency · gRPC · Kafka"</span>,
+    <span class="str">"AWS · Kubernetes · CI/CD"</span>
   );
 }</pre>
     </div>
@@ -93,7 +106,7 @@
 <!-- Stats -->
 <div class="stats-grid">
   <div class="stat-card spotlight-card" data-tilt data-tilt-scale="1.05" data-animate><div class="stat-value font-mono">6+</div><div class="stat-label">Years Experience</div></div>
-  <div class="stat-card spotlight-card" data-tilt data-tilt-scale="1.05" data-animate><div class="stat-value font-mono">9+</div><div class="stat-label">Production Projects</div></div>
+  <div class="stat-card spotlight-card" data-tilt data-tilt-scale="1.05" data-animate><div class="stat-value font-mono">8</div><div class="stat-label">Production Platforms</div></div>
   <div class="stat-card spotlight-card" data-tilt data-tilt-scale="1.05" data-animate><div class="stat-value font-mono">7</div><div class="stat-label">Industry Domains</div></div>
   <div class="stat-card spotlight-card" data-tilt data-tilt-scale="1.05" data-animate><div class="stat-value font-mono">3</div><div class="stat-label">Languages Spoken</div></div>
 </div>
@@ -103,19 +116,25 @@
 <!-- About -->
 <section class="section" id="about">
   <h2 class="section-title" data-animate>About <span class="gradient-text">Me</span></h2>
-  <p class="section-sub" data-animate>Senior Java &amp; Go developer architecting scalable backend systems across fintech, cloud platforms, logistics, banking, and e-commerce.</p>
+  <p class="section-sub" data-animate>Senior Backend Engineer building distributed systems in Java and Go across fintech, banking, cloud infrastructure and e-commerce.</p>
   <div style="max-width:860px;margin:0 auto" data-animate>
     <div class="about-card spotlight-card">
       <p>
-        Currently building reactive microservices on the <strong style="color:var(--cyan)">Tick Data</strong> financial analytics platform at
-        <strong style="color:var(--green)">OMD</strong> using <strong style="color:var(--orange)">Java &amp; Micronaut</strong>.
-        Proven full-cycle expertise — from <strong style="color:var(--blue)">REST API design</strong> and
-        <strong style="color:var(--purple)">microservice architecture</strong> to CI/CD, Docker, Kubernetes, and AWS.
-        Strong analytical and problem-solving skills with a collaborative approach to designing and refining functionality.
+        6+ years in <strong style="color:var(--orange)">Java</strong> and <strong style="color:var(--cyan)">Go</strong>, building
+        <strong style="color:var(--blue)">microservices</strong>, REST and gRPC APIs, and event-driven pipelines.
+        Commands <strong style="color:var(--green)">Spring Boot</strong>, <strong style="color:var(--purple)">Micronaut</strong>,
+        JVM concurrency and clean architecture in production systems. Delivers on AWS with Docker, Kubernetes, Helm and CI/CD,
+        and models data across relational and NoSQL stores with advanced SQL and query tuning.
+      </p>
+      <p style="margin-top:20px">
+        Owns systems from design decision through deployment to production support. Leads code review, drives core
+        system-design decisions and mentors engineers. Currently builds OMD's tick-level market-data platform; previously led
+        architecture decisions and code review across e-commerce teams. Uses Claude Code and OpenCode CLI in daily production
+        development.
       </p>
       <div class="about-meta">
-        <span><i class="fas fa-map-marker-alt" style="color:var(--red)"></i>Yerevan, Armenia</span>
-        <span><i class="fas fa-graduation-cap" style="color:var(--blue)"></i>BS Informatics &amp; CS — NUACA 2018</span>
+        <span><i class="fas fa-map-marker-alt" style="color:var(--red)"></i>Yerevan, Armenia · UTC+4</span>
+        <span><i class="fas fa-graduation-cap" style="color:var(--blue)"></i>BSc Informatics &amp; CS — NUACA</span>
         <span><i class="fas fa-language" style="color:var(--purple)"></i>Armenian · Russian · English</span>
       </div>
     </div>
@@ -124,30 +143,30 @@
 
 <hr class="section-divider"/>
 
-<!-- Key Projects (Achievements) -->
+<!-- Key Achievements -->
 <section class="section" id="achievements">
-  <h2 class="section-title" data-animate>Featured <span class="gradient-text">Projects</span></h2>
+  <h2 class="section-title" data-animate>Key <span class="gradient-text">Achievements</span></h2>
   <p class="section-sub" data-animate>Impact across enterprise-scale platforms</p>
   <div class="achievements-grid">
     <div class="achievement-card spotlight-card" data-animate>
-      <span class="badge" style="background:rgba(74,222,128,0.15);color:var(--green)">OMD</span>
-      <h3>Tick Data — Financial Analytics</h3>
-      <p>Built and maintained reactive microservices in Java/Micronaut for a historical market data and tick-level processing platform. Designed REST APIs with JWT auth, RBAC, pagination, filtering, and OpenAPI integration.</p>
+      <span class="badge" style="background:rgba(192,132,252,0.15);color:var(--purple)">Codeex</span>
+      <h3>Monolith → Microservices</h3>
+      <p>Led the migration of a monolithic e-commerce platform to microservices, then built white-label-capable products on the new architecture.</p>
     </div>
     <div class="achievement-card spotlight-card" data-animate>
-      <span class="badge" style="background:rgba(251,146,60,0.15);color:var(--orange)">Uber (Xcelforce)</span>
-      <h3>Cloud Resource Optimization</h3>
-      <p>Built Go backend services for quota tracking and cost optimization across OCI, GCP, and Odin. High-performance concurrent processing with goroutines, sync primitives, and gRPC APIs for real-time analytics.</p>
+      <span class="badge" style="background:rgba(74,222,128,0.15);color:var(--green)">OMD</span>
+      <h3>Reactive Java 21 + Go Concurrency</h3>
+      <p>Architected the reactive Java 21 / Micronaut services and the Go concurrency module behind a tick-level market-data platform.</p>
+    </div>
+    <div class="achievement-card spotlight-card" data-animate>
+      <span class="badge" style="background:rgba(100,223,223,0.15);color:var(--cyan)">I-Tech</span>
+      <h3>Four Backends, Sole or Lead Dev</h3>
+      <p>Delivered four production backend products as sole or lead developer, including a full B2C e-commerce platform.</p>
     </div>
     <div class="achievement-card spotlight-card" data-tilt data-animate>
-      <span class="badge" style="background:rgba(100,223,223,0.15);color:var(--cyan)">SoulsHub</span>
-      <h3>AI Platform — DevOps &amp; Architecture</h3>
-      <p>Designed scalable architecture and set up CI/CD pipelines, Dockerization, AWS EC2/S3/IAM provisioning, Nginx + Cloudflare, and automated rollback for an AI platform representing famous personalities and mentors.</p>
-    </div>
-    <div class="achievement-card spotlight-card" data-animate>
-      <span class="badge" style="background:rgba(192,132,252,0.15);color:var(--purple)">Energize Global Services</span>
-      <h3>PGUI — Bank Management System</h3>
-      <p>Senior engineer on a bank management platform. Architected application modules, built REST APIs, integrated Keycloak and Apache Camel, and handled user management, search, and database maintenance.</p>
+      <span class="badge" style="background:rgba(251,146,60,0.15);color:var(--orange)">AI Engineering</span>
+      <h3>LLM-Assisted Development at Team Scale</h3>
+      <p>Drove team-wide adoption of Claude Code and LLM-assisted review, keeping human code review as the release gate.</p>
     </div>
   </div>
 </section>
@@ -166,74 +185,101 @@
           <span class="timeline-role">Senior Java Software Engineer</span>
           <span class="timeline-date font-mono">Sep 2024 – Present</span>
         </div>
-        <div class="timeline-company">OMD — Tick Data Platform</div>
-        <p class="timeline-desc">Developing reactive microservices with Java and Micronaut for a financial analytics platform. REST API design, JWT/RBAC security, OpenAPI codegen, system performance optimization, and microservice architecture discussions.</p>
-        <div class="timeline-tags"><span>Java</span><span>Micronaut</span><span>PostgreSQL</span><span>R2DBC</span><span>Flyway</span><span>OpenAPI</span><span>Kubernetes</span><span>AWS</span></div>
+        <div class="timeline-company">OMD — Tick Data</div>
+        <p class="timeline-desc">
+          Financial data analytics platform delivering historical market data, tick-level processing and analytics for trading
+          and quantitative research. Architected reactive microservices in Java 21 and Micronaut with GraalVM native builds over
+          Micronaut Data, R2DBC and JDBC. Designed pageable, searchable REST APIs with server-side filtering and sorting, and
+          engineered streaming file downloads that cut wait times and memory footprint. Integrated asynchronous messaging over
+          ActiveMQ and AWS SQS plus real-time WebSocket channels, secured the API surface with JWT lifecycle and RBAC, and built
+          a custom API gateway, a centralized configuration service with Caffeine caching, and data-migration services. Owns a Go
+          platform module built on goroutines and worker-pool patterns, standardized API contracts with contract-first OpenAPI,
+          and drives core system-design decisions while mentoring engineers through code review.
+        </p>
+        <div class="timeline-tags"><span>Java 21</span><span>Go</span><span>GraalVM</span><span>Micronaut</span><span>R2DBC</span><span>PostgreSQL</span><span>ActiveMQ</span><span>WebSockets</span><span>OpenAPI</span><span>Kubernetes</span><span>Helm</span><span>AWS</span><span>Grafana</span></div>
       </div>
     </div>
+
     <div class="timeline-item" data-animate>
       <div class="timeline-card spotlight-card">
         <div class="timeline-header">
-          <span class="timeline-role">Go Backend Developer</span>
-          <span class="timeline-date font-mono">Jul 2024 – Dec 2025</span>
-        </div>
-        <div class="timeline-company">Xcelforce — Uber (Cloud Resource Optimization)</div>
-        <p class="timeline-desc">Built backend services in Go for cloud resource allocation and cost optimization across OCI, GCP, and Odin. High-performance concurrent processing with goroutines &amp; mutexes; gRPC APIs; structured logging and metrics.</p>
-        <div class="timeline-tags"><span>Go</span><span>gRPC</span><span>MySQL</span><span>Gorm</span><span>Uber Fx</span><span>Arcanist</span><span>Grafana</span><span>Docker</span></div>
-      </div>
-    </div>
-    <div class="timeline-item" data-animate>
-      <div class="timeline-card spotlight-card">
-        <div class="timeline-header">
-          <span class="timeline-role">Java Software Engineer</span>
+          <span class="timeline-role">Senior Java Software Engineer</span>
           <span class="timeline-date font-mono">Jul 2023 – Jul 2024</span>
         </div>
         <div class="timeline-company">Energize Global Services — PGUI (Banking)</div>
-        <p class="timeline-desc">Senior engineer on a Bank Management System. Designed application architecture, developed REST APIs, user management and search; participated in architectural decisions for modern banking workflows.</p>
-        <div class="timeline-tags"><span>Java 11</span><span>Spring Boot</span><span>Tapestry</span><span>Keycloak</span><span>Apache Camel</span><span>Oracle</span><span>Hibernate</span><span>Liquibase</span></div>
+        <p class="timeline-desc">
+          PGUI — bank management system. Engineered new features and resolved production incidents on the bank-management
+          platform, sustaining service reliability. Designed REST APIs and built user-management and search functionality backed
+          by Keycloak for identity and access management. Tuned slow SQL queries to improve database performance and response
+          times, and maintained schema integrity through versioned Liquibase migrations.
+        </p>
+        <div class="timeline-tags"><span>Java 11</span><span>Spring Boot</span><span>Tapestry</span><span>Keycloak</span><span>Apache Camel</span><span>Oracle</span><span>Hibernate</span><span>Liquibase</span><span>Maven</span></div>
       </div>
     </div>
-    <div class="timeline-item" data-animate>
-      <div class="timeline-card spotlight-card" data-tilt>
-        <div class="timeline-header">
-          <span class="timeline-role">Java Trainer</span>
-          <span class="timeline-date font-mono">Jul 2023 – Present</span>
-        </div>
-        <div class="timeline-company">Smart Code — Education</div>
-        <p class="timeline-desc">Teaching Java fundamentals, OOP, Spring Boot, design patterns, and microservices. Mentoring students through real-world coding exercises and code reviews.</p>
-        <div class="timeline-tags"><span>Java SE/EE</span><span>Spring Boot</span><span>OOP</span><span>Design Patterns</span><span>Algorithms</span></div>
-      </div>
-    </div>
+
     <div class="timeline-item" data-animate>
       <div class="timeline-card spotlight-card">
         <div class="timeline-header">
-          <span class="timeline-role">Java Software Engineer</span>
+          <span class="timeline-role">Java Backend Developer</span>
           <span class="timeline-date font-mono">Aug 2022 – Jul 2023</span>
         </div>
-        <div class="timeline-company">I-Tech — Logistics &amp; SaaS</div>
-        <p class="timeline-desc">Solo backend developer on multiple products: Audit Trail (Elasticsearch + Mongo + Kafka), Click-market e-commerce (PostgreSQL, Spring Cloud), T3 TMS and TMT logistics platforms. JWT security, CI/CD, full automated testing.</p>
-        <div class="timeline-tags"><span>Java 17</span><span>Spring Boot 3</span><span>Spring Security</span><span>Kafka</span><span>Elasticsearch</span><span>MongoDB</span><span>PostgreSQL</span><span>Docker</span></div>
+        <div class="timeline-company">I-Tech — Logistics, Audit &amp; E-commerce</div>
+        <p class="timeline-desc">
+          Audit Trail (user-activity logging), T3 TMS (transportation management), TMT (GPS trip tracking) and Click Market (B2C
+          e-commerce). Delivered four production backend products as sole or lead developer on Spring Boot 3 and Spring Cloud,
+          with REST APIs, JWT security, search and notifications across those services. Built an audit-logging service on
+          Elasticsearch and MongoDB that consumed Kafka events, tracking p95 / p99 query latency as the index grew. Shipped Click
+          Market end to end — payment integration, catalog, cart and checkout, admin dashboard and inventory logic. Engineered
+          S3-backed file uploads and SSE streaming, architected the multi-module application and database structure, then built
+          the CI/CD pipelines and containerized every service with Docker.
+        </p>
+        <div class="timeline-tags"><span>Java 17/11</span><span>Spring Boot 3</span><span>Spring Security</span><span>Spring Cloud</span><span>Kafka</span><span>Elasticsearch</span><span>MongoDB</span><span>PostgreSQL</span><span>SSE</span><span>Docker</span><span>Kubernetes</span></div>
       </div>
     </div>
+
     <div class="timeline-item" data-animate>
       <div class="timeline-card spotlight-card">
         <div class="timeline-header">
           <span class="timeline-role">Java Software Engineer</span>
           <span class="timeline-date font-mono">Aug 2020 – Aug 2022</span>
         </div>
-        <div class="timeline-company">Codeex — MLM Platform</div>
-        <p class="timeline-desc">Migrated a monolithic MLM platform to microservices with white-label support. Built an authorization server and e-commerce microservice with PASETO security; database design and code reviews.</p>
-        <div class="timeline-tags"><span>Java 17</span><span>Spring Boot</span><span>Spring Cloud</span><span>PostgreSQL</span><span>Redis</span><span>WebSockets</span><span>MyBatis</span><span>Hibernate</span></div>
+        <div class="timeline-company">Codeex — MLM E-commerce Platform</div>
+        <p class="timeline-desc">
+          MLM — multi-level marketing e-commerce platform. Migrated a monolithic application to microservices and built
+          white-label-capable products. Developed a PASETO-secured authorization server and the e-commerce microservices behind
+          it, and designed the user-management database architecture. Led code reviews and architecture decisions across the team.
+        </p>
+        <div class="timeline-tags"><span>Java 17</span><span>Spring Boot</span><span>Spring Security</span><span>Spring Cloud</span><span>PostgreSQL</span><span>Redis</span><span>WebSockets</span><span>MyBatis</span><span>Hibernate</span></div>
       </div>
     </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-card spotlight-card" data-tilt>
+        <div class="timeline-header">
+          <span class="timeline-role">Java Trainer (Part-time)</span>
+          <span class="timeline-date font-mono">Jul 2023 – Sep 2024</span>
+        </div>
+        <div class="timeline-company">Smart Code — Education</div>
+        <p class="timeline-desc">
+          Part-time, concurrent with the Energize and OMD roles. Trained aspiring Java developers in core Java, Spring and
+          backend engineering practice, and authored the course materials and hands-on exercises covering OOP, data structures,
+          algorithms and clean code.
+        </p>
+        <div class="timeline-tags"><span>Core Java</span><span>Spring</span><span>OOP</span><span>Data Structures</span><span>Algorithms</span><span>Clean Code</span></div>
+      </div>
+    </div>
+
     <div class="timeline-item" data-animate>
       <div class="timeline-card spotlight-card">
         <div class="timeline-header">
           <span class="timeline-role">Java Developer Trainee</span>
           <span class="timeline-date font-mono">Feb 2020 – Aug 2020</span>
         </div>
-        <div class="timeline-company">Picsart Armenia</div>
-        <p class="timeline-desc">Started professional Java journey at one of Armenia's largest tech companies. Hands-on with Java SE/EE fundamentals, OOP, and team collaboration on production-grade tooling.</p>
+        <div class="timeline-company">PicsArt Armenia</div>
+        <p class="timeline-desc">
+          Completed an intensive Java backend training program and contributed to production development tasks under senior
+          mentorship.
+        </p>
         <div class="timeline-tags"><span>Java</span><span>Spring</span><span>OOP</span><span>Git</span><span>Agile</span></div>
       </div>
     </div>
@@ -242,55 +288,47 @@
 
 <hr class="section-divider"/>
 
-<!-- Projects Detailed Grid -->
+<!-- Projects -->
 <section class="section" id="projects">
   <h2 class="section-title" data-animate>Project <span class="gradient-text">Portfolio</span></h2>
-  <p class="section-sub" data-animate>Selected production projects from across my career</p>
+  <p class="section-sub" data-animate>Selected production platforms from across my career</p>
 
   <div class="repos-grid">
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-chart-line"></i> Tick Data</div>
-      <div class="repo-desc">Financial data analytics platform — historical market data, tick-level processing, and analytics for trading &amp; quantitative research. Reactive microservices with JWT/RBAC and OpenAPI.</div>
+      <div class="repo-desc">Financial data analytics platform — historical market data, tick-level processing and analytics for trading and quantitative research. Reactive microservices with GraalVM native builds, JWT/RBAC security, a custom API gateway and contract-first OpenAPI.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java · Micronaut</span>
+        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 21 · Micronaut · Go</span>
         <span><i class="fas fa-building"></i> OMD</span>
       </div>
     </div>
     <div class="repo-card spotlight-card" data-animate>
-      <div class="repo-name"><i class="fas fa-cloud"></i> Cloud Resource Optimization</div>
-      <div class="repo-desc">Internal platform for cloud resource allocation, quota tracking, and cost optimization across OCI, GCP, and Odin. gRPC APIs and concurrent data processing in Go.</div>
-      <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#00ADD8"></span>Go · gRPC</span>
-        <span><i class="fas fa-building"></i> Uber</span>
-      </div>
-    </div>
-    <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-robot"></i> SoulsHub</div>
-      <div class="repo-desc">AI platform letting users interact with accurate AI representations of famous personalities, historical figures, and mentors. End-to-end CI/CD, Docker, and AWS infrastructure design.</div>
+      <div class="repo-desc">LLM-powered platform for interacting with AI representations of famous personalities, historical figures and mentors. Designed the application and database architecture, Nginx + Cloudflare edge with TLS termination, GitHub Actions CI/CD with quality gates and approvals, hardened AWS EC2, and automated S3 backups with version-based rollback.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#fb923c"></span>DevOps · AWS</span>
-        <span><i class="fas fa-building"></i> SoulsHub</span>
+        <span><span class="repo-lang-dot" style="background:#fb923c"></span>Architecture · DevOps · AWS</span>
+        <span><i class="fas fa-building"></i> Freelance, Jan 2024</span>
       </div>
     </div>
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-university"></i> PGUI</div>
-      <div class="repo-desc">Bank management system. Application architecture, REST APIs with Keycloak auth, search, user management, and database maintenance across Oracle.</div>
+      <div class="repo-desc">Bank management system. REST API design, user management and search backed by Keycloak, Apache Camel integrations, SQL query tuning on Oracle, and versioned Liquibase migrations.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java · Spring · Tapestry</span>
+        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 11 · Spring · Tapestry</span>
         <span><i class="fas fa-building"></i> Energize Global Services</span>
       </div>
     </div>
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-clipboard-list"></i> Audit Trail</div>
-      <div class="repo-desc">Service for logging user actions (update/create/delete). Search with Elasticsearch and MongoDB; Kafka message consumers; multi-module architecture with JWT security and CI/CD.</div>
+      <div class="repo-desc">User-activity logging service on Elasticsearch and MongoDB, consuming Kafka events. Multi-module architecture with JWT security, p95 / p99 query-latency tracking as the index grew, and Dockerized CI/CD delivery.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 17 · Spring Boot 3</span>
+        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 17 · Spring Boot 3 · Kafka</span>
         <span><i class="fas fa-building"></i> I-Tech</span>
       </div>
     </div>
     <div class="repo-card spotlight-card" data-animate>
-      <div class="repo-name"><i class="fas fa-cart-shopping"></i> Click-market</div>
-      <div class="repo-desc">E-commerce platform for the purchase and delivery of flowers. JWT security, user/order management, payment integration, notifications, GCS uploads, and migrations.</div>
+      <div class="repo-name"><i class="fas fa-cart-shopping"></i> Click Market</div>
+      <div class="repo-desc">B2C e-commerce platform shipped as sole developer — payment integration, catalog, cart and checkout, admin dashboard and inventory logic, with S3-backed uploads and database migrations.</div>
       <div class="repo-meta">
         <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 17 · Spring Cloud</span>
         <span><i class="fas fa-building"></i> I-Tech</span>
@@ -298,7 +336,7 @@
     </div>
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-truck"></i> T3 TMS</div>
-      <div class="repo-desc">Transportation management system helping logistics companies plan, schedule, and dispatch trips. End-to-end unit and integration testing; CI/CD; AWS S3 uploads.</div>
+      <div class="repo-desc">Transportation management system for planning, scheduling and dispatching trips. REST APIs with JWT security, search and notification features, backed by unit, integration and end-to-end test coverage.</div>
       <div class="repo-meta">
         <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 11 · Spring Boot</span>
         <span><i class="fas fa-building"></i> I-Tech</span>
@@ -306,19 +344,74 @@
     </div>
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-location-dot"></i> TMT</div>
-      <div class="repo-desc">GPS tracking system letting logistics companies track trips with a smartphone. JWT auth, payments, notifications, S3 uploads, and migrations.</div>
+      <div class="repo-desc">GPS trip-tracking platform letting logistics companies follow trips from a smartphone. REST APIs with JWT security, S3-backed file uploads, SSE streaming and owned database migrations.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 11 · Kafka · SSE</span>
+        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 11 · SSE · AWS S3</span>
         <span><i class="fas fa-building"></i> I-Tech</span>
       </div>
     </div>
     <div class="repo-card spotlight-card" data-animate>
       <div class="repo-name"><i class="fas fa-network-wired"></i> MLM</div>
-      <div class="repo-desc">Multi-level marketing platform with white-label capability. Monolith → microservices migration; auth server and e-commerce microservices with PASETO security.</div>
+      <div class="repo-desc">Multi-level marketing e-commerce platform with white-label capability. Monolith → microservices migration, a PASETO-secured authorization server, and the user-management database architecture behind it.</div>
       <div class="repo-meta">
-        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 17 · Spring Cloud</span>
+        <span><span class="repo-lang-dot" style="background:#b07219"></span>Java 17 · Spring Cloud · Redis</span>
         <span><i class="fas fa-building"></i> Codeex</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Core Skills -->
+<section class="section" id="skills">
+  <h2 class="section-title" data-animate>Core <span class="gradient-text">Skills</span></h2>
+  <p class="section-sub" data-animate>The stack I design, build and run in production</p>
+
+  <div class="skills-grid">
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-code"></i>Languages</h3>
+      <div class="timeline-tags"><span>Java 8 / 11 / 17 / 21</span><span>Go</span><span>SQL</span><span>Python (automation)</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-layer-group"></i>Frameworks</h3>
+      <div class="timeline-tags"><span>Spring Boot 3.x</span><span>Spring Security</span><span>Spring Cloud</span><span>Spring Data</span><span>Hibernate</span><span>JPA</span><span>Micronaut</span><span>Micronaut Data</span><span>Apache Camel</span><span>Uber FX</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-sitemap"></i>Architecture</h3>
+      <div class="timeline-tags"><span>Distributed systems</span><span>Microservices</span><span>REST APIs</span><span>gRPC / Protobuf</span><span>Event-driven &amp; streaming</span><span>Reactive services</span><span>Concurrency</span><span>High availability</span><span>SOLID</span><span>Clean Architecture</span><span>Contract-first OpenAPI</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-paper-plane"></i>Messaging</h3>
+      <div class="timeline-tags"><span>Apache Kafka</span><span>ActiveMQ</span><span>AWS SQS</span><span>WebSockets</span><span>Server-Sent Events</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-database"></i>Data</h3>
+      <div class="timeline-tags"><span>PostgreSQL</span><span>MySQL</span><span>Oracle</span><span>H2</span><span>Advanced SQL</span><span>Indexing &amp; query tuning</span><span>MongoDB</span><span>Redis</span><span>Elasticsearch</span><span>Flyway</span><span>Liquibase</span><span>R2DBC</span><span>JDBC</span><span>MyBatis</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-shield-halved"></i>Security</h3>
+      <div class="timeline-tags"><span>Spring Security</span><span>OAuth2</span><span>JWT lifecycle</span><span>RBAC</span><span>Keycloak</span><span>PASETO</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-cloud"></i>Cloud &amp; DevOps</h3>
+      <div class="timeline-tags"><span>AWS EKS</span><span>S3</span><span>SQS</span><span>IAM / SSO</span><span>EC2</span><span>Docker</span><span>Kubernetes</span><span>Helm</span><span>GitHub Actions</span><span>GitLab CI</span><span>Nginx</span><span>Cloudflare</span><span>Linux</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-vial"></i>Testing &amp; Performance</h3>
+      <div class="timeline-tags"><span>JUnit 5</span><span>Mockito</span><span>AssertJ</span><span>Integration &amp; E2E automation</span><span>p95 / p99 latency tuning</span><span>Throughput profiling</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-chart-area"></i>Observability</h3>
+      <div class="timeline-tags"><span>Structured logging</span><span>Grafana dashboards</span><span>Performance metrics</span><span>Production debugging</span><span>Incident response</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-brain"></i>AI Engineering</h3>
+      <div class="timeline-tags"><span>Claude Code</span><span>OpenCode CLI</span><span>Anthropic API integration</span><span>LLM-assisted refactoring</span><span>Test generation</span><span>Prompt engineering</span></div>
+    </div>
+    <div class="skill-card spotlight-card" data-animate>
+      <h3><i class="fas fa-users"></i>Leadership &amp; Practices</h3>
+      <div class="timeline-tags"><span>Team leadership</span><span>Technical direction</span><span>System-design ownership</span><span>Code &amp; PR review</span><span>Mentoring</span><span>Git &amp; branching workflows</span><span>Agile / Scrum</span><span>Maven</span><span>Technical documentation</span></div>
     </div>
   </div>
 </section>
@@ -332,43 +425,102 @@
   <div class="tech-marquee-wrapper" data-animate>
     <div class="tech-marquee">
       <!-- Group 1 -->
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=java" alt="Java"/><span>Java SE/EE</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=java" alt="Java"/><span>Java</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=spring" alt="Spring"/><span>Spring Boot</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=go" alt="Go"/><span>Go</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=hibernate" alt="Hibernate"/><span>Hibernate</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=postgres" alt="PG"/><span>PostgreSQL</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=postgres" alt="PostgreSQL"/><span>PostgreSQL</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mysql" alt="MySQL"/><span>MySQL</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mongodb" alt="Mongo"/><span>MongoDB</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mongodb" alt="MongoDB"/><span>MongoDB</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=redis" alt="Redis"/><span>Redis</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kafka" alt="Kafka"/><span>Kafka</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=elasticsearch" alt="ES"/><span>Elasticsearch</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=elasticsearch" alt="Elasticsearch"/><span>Elasticsearch</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=docker" alt="Docker"/><span>Docker</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kubernetes" alt="K8s"/><span>Kubernetes</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kubernetes" alt="Kubernetes"/><span>Kubernetes</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=aws" alt="AWS"/><span>AWS</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=grafana" alt="Grafana"/><span>Grafana</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=githubactions" alt="GitHub Actions"/><span>GitHub Actions</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=gitlab" alt="GitLab CI"/><span>GitLab CI</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=nginx" alt="Nginx"/><span>Nginx</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=cloudflare" alt="Cloudflare"/><span>Cloudflare</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=linux" alt="Linux"/><span>Linux</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=git" alt="Git"/><span>Git</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=maven" alt="Maven"/><span>Maven</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=gradle" alt="Gradle"/><span>Gradle</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=python" alt="Python"/><span>Python</span></div>
       <!-- Group 2 (Duplicate for infinite scroll) -->
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=java" alt="Java"/><span>Java SE/EE</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=java" alt="Java"/><span>Java</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=spring" alt="Spring"/><span>Spring Boot</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=go" alt="Go"/><span>Go</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=hibernate" alt="Hibernate"/><span>Hibernate</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=postgres" alt="PG"/><span>PostgreSQL</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=postgres" alt="PostgreSQL"/><span>PostgreSQL</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mysql" alt="MySQL"/><span>MySQL</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mongodb" alt="Mongo"/><span>MongoDB</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=mongodb" alt="MongoDB"/><span>MongoDB</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=redis" alt="Redis"/><span>Redis</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kafka" alt="Kafka"/><span>Kafka</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=elasticsearch" alt="ES"/><span>Elasticsearch</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=elasticsearch" alt="Elasticsearch"/><span>Elasticsearch</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=docker" alt="Docker"/><span>Docker</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kubernetes" alt="K8s"/><span>Kubernetes</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=kubernetes" alt="Kubernetes"/><span>Kubernetes</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=aws" alt="AWS"/><span>AWS</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=grafana" alt="Grafana"/><span>Grafana</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=githubactions" alt="GitHub Actions"/><span>GitHub Actions</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=gitlab" alt="GitLab CI"/><span>GitLab CI</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=nginx" alt="Nginx"/><span>Nginx</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=cloudflare" alt="Cloudflare"/><span>Cloudflare</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=linux" alt="Linux"/><span>Linux</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=git" alt="Git"/><span>Git</span></div>
       <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=maven" alt="Maven"/><span>Maven</span></div>
-      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=gradle" alt="Gradle"/><span>Gradle</span></div>
+      <div class="tech-item spotlight-card"><img src="https://skillicons.dev/icons?i=python" alt="Python"/><span>Python</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Certifications & Education -->
+<section class="section" id="education">
+  <h2 class="section-title" data-animate>Certifications &amp; <span class="gradient-text">Education</span></h2>
+  <p class="section-sub" data-animate>Training, credentials and academic background</p>
+
+  <div class="repos-grid" style="margin-bottom:24px">
+    <div class="repo-card spotlight-card" data-animate>
+      <div class="repo-name"><i class="fab fa-aws"></i> AWS Cloud Practitioner Essentials</div>
+      <div class="repo-desc">Amazon Web Services, Feb 2023.</div>
+      <div class="repo-meta"><span class="font-mono">Credential ID 1CD4437E-4111-40EB-A4E1-54105F6F3C6F</span></div>
+    </div>
+    <div class="repo-card spotlight-card" data-animate>
+      <div class="repo-name"><i class="fab fa-aws"></i> AWS Cloud Essentials</div>
+      <div class="repo-desc">Amazon Web Services, Feb 2023.</div>
+      <div class="repo-meta"><span class="font-mono">Credential ID 189192CE-ADCC-406C-BC2A-8EEBB954F784</span></div>
+    </div>
+    <div class="repo-card spotlight-card" data-animate>
+      <div class="repo-name"><i class="fas fa-certificate"></i> Java Development</div>
+      <div class="repo-desc">Basic IT Center, Sep 2020.</div>
+      <div class="repo-meta"><span><i class="fas fa-graduation-cap"></i> Professional training</span></div>
+    </div>
+    <div class="repo-card spotlight-card" data-animate>
+      <div class="repo-name"><i class="fas fa-user-graduate"></i> Java Backend Trainee Program</div>
+      <div class="repo-desc">PicsArt Armenia, 2020 — intensive full-time backend program.</div>
+      <div class="repo-meta"><span><i class="fas fa-building"></i> PicsArt Armenia</span></div>
+    </div>
+    <div class="repo-card spotlight-card" data-animate>
+      <div class="repo-name"><i class="fas fa-chalkboard-user"></i> Java &amp; Spring Backend Curriculum</div>
+      <div class="repo-desc">Smart Code, 2023–2024 — authored and taught as instructor.</div>
+      <div class="repo-meta"><span><i class="fas fa-pen-nib"></i> Author &amp; instructor</span></div>
+    </div>
+  </div>
+
+  <div style="max-width:860px;margin:0 auto" data-animate>
+    <div class="about-card spotlight-card">
+      <div class="timeline-header">
+        <span class="timeline-role">BSc, Informatics and Computer Science</span>
+        <span class="timeline-date font-mono">2014 – 2018</span>
+      </div>
+      <div class="timeline-company">National University of Architecture and Construction of Armenia (NUACA)</div>
+      <div class="about-meta">
+        <span><i class="fas fa-language" style="color:var(--purple)"></i>English — B2, professional working proficiency</span>
+        <span><i class="fas fa-language" style="color:var(--blue)"></i>Russian — fluent</span>
+        <span><i class="fas fa-language" style="color:var(--green)"></i>Armenian — native</span>
+      </div>
     </div>
   </div>
 </section>
@@ -380,20 +532,20 @@
   <h2 class="section-title" data-animate>Let's <span class="gradient-text">Connect</span></h2>
   <p class="section-sub" data-animate>Feel free to reach out for collaborations or opportunities</p>
   <div class="contact-grid" data-animate>
+    <a href="Aghasi_Khachatryan_CV.pdf" download class="contact-card spotlight-card magnetic">
+      <i class="fa-solid fa-file-arrow-down" style="color:var(--orange)"></i><span>Download CV (PDF)</span>
+    </a>
     <a href="https://www.linkedin.com/in/aghasi-khachatryan-a07a6117a/" target="_blank" rel="noopener" class="contact-card spotlight-card magnetic">
       <i class="fa-brands fa-linkedin-in" style="color:#0077B5"></i><span>LinkedIn</span>
     </a>
-    <a href="mailto:mailtokhachatryan96@gmail.com" class="contact-card spotlight-card magnetic">
-      <i class="fa-regular fa-envelope" style="color:var(--red)"></i><span>Gmail</span>
+    <a href="mailto:aghasikhachatryan04@gmail.com" class="contact-card spotlight-card magnetic">
+      <i class="fa-regular fa-envelope" style="color:var(--red)"></i><span>Email</span>
     </a>
     <a href="tel:+37494657895" class="contact-card spotlight-card magnetic">
       <i class="fa-solid fa-phone" style="color:var(--green)"></i><span>+374 94 657895</span>
     </a>
-    <a href="https://maps.google.com/?q=Yerevan+Avan+Armenia" target="_blank" rel="noopener" class="contact-card spotlight-card magnetic">
-      <i class="fa-solid fa-location-dot" style="color:var(--blue)"></i><span>Yerevan, Armenia</span>
-    </a>
-    <a href="Aghasi%20Khachatryan%20Java.pdf" download="Aghasi_Khachatryan_CV.pdf" class="contact-card spotlight-card magnetic">
-      <i class="fa-solid fa-file-pdf" style="color:var(--orange)"></i><span>Download CV</span>
+    <a href="https://maps.google.com/?q=Yerevan+Armenia" target="_blank" rel="noopener" class="contact-card spotlight-card magnetic">
+      <i class="fa-solid fa-location-dot" style="color:var(--blue)"></i><span>Yerevan, Armenia · UTC+4</span>
     </a>
   </div>
 </section>
@@ -403,6 +555,25 @@
   <p>&copy; 2026 Aghasi Khachatryan. All rights reserved.</p>
   <div class="footer-status"><span></span> Available for opportunities</div>
 </footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aghasi Khachatryan",
+  "jobTitle": "Senior Backend Engineer",
+  "url": "https://mailtokhachatryan.github.io/",
+  "image": "https://mailtokhachatryan.github.io/assets/aghasi-khachatryan.jpg",
+  "email": "mailto:aghasikhachatryan04@gmail.com",
+  "telephone": "+374 94 657895",
+  "address": { "@type": "PostalAddress", "addressLocality": "Yerevan", "addressCountry": "AM" },
+  "sameAs": ["https://www.linkedin.com/in/aghasi-khachatryan-a07a6117a/"],
+  "worksFor": { "@type": "Organization", "name": "OMD" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "National University of Architecture and Construction of Armenia" },
+  "knowsLanguage": ["hy", "ru", "en"],
+  "knowsAbout": ["Java", "Go", "Spring Boot", "Micronaut", "Distributed Systems", "Microservices", "Kubernetes", "AWS"]
+}
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script src="src/app.js"></script>

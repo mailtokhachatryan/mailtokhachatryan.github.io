@@ -1,9 +1,10 @@
 // ===== Typewriter =====
 const phrases = [
-  "Senior Java Software Engineer | 6+ Years",
-  "Java • Spring • Micronaut • Go",
-  "Building reactive microservices at OMD",
-  "Cloud-Native • Microservices • gRPC"
+  "Senior Backend Engineer | 6+ Years",
+  "Java • Go • Spring Boot • Micronaut",
+  "Distributed systems & event-driven pipelines",
+  "Tick-level market data at OMD",
+  "AWS • Kubernetes • Helm • CI/CD"
 ];
 let phraseIdx = 0, charIdx = 0, deleting = false;
 const twEl = document.getElementById('typewriter');
@@ -26,11 +27,34 @@ type();
 const nav = document.querySelector('.navbar');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
 
+// ===== Mobile menu =====
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.querySelector('i').className = open ? 'fas fa-xmark' : 'fas fa-bars';
+  });
+}
+
+const closeNav = () => {
+  if (navLinks && navLinks.classList.contains('open')) {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.querySelector('i').className = 'fas fa-bars';
+  }
+};
+
 // ===== Smooth scroll =====
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
+    closeNav();
+    const href = a.getAttribute('href');
+    if (href === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const t = document.querySelector(href);
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
@@ -187,10 +211,12 @@ if (avatar && overlay) {
       termOutput.appendChild(pCmd);
 
       const pRes = document.createElement('p');
-      if (val === 'help') pRes.innerHTML = 'Commands: help, whoami, skills, contact, clear, exit';
-      else if (val === 'whoami') pRes.innerHTML = 'Aghasi Khachatryan - Senior Java Software Engineer @ OMD. Java, Spring, Micronaut, Go.';
-      else if (val === 'skills') pRes.innerHTML = 'Java SE/EE, Spring Boot, Micronaut, Go, gRPC, PostgreSQL, MongoDB, Kafka, Kubernetes, AWS, Docker';
-      else if (val === 'contact') pRes.innerHTML = 'Email: mailtokhachatryan96@gmail.com | Phone: +374 94 657895';
+      if (val === 'help') pRes.innerHTML = 'Commands: help, whoami, skills, experience, cv, contact, clear, exit';
+      else if (val === 'whoami') pRes.innerHTML = 'Aghasi Khachatryan - Senior Backend Engineer @ OMD (Tick Data). 6+ years in Java and Go.';
+      else if (val === 'skills') pRes.innerHTML = 'Java 8/11/17/21, Go, Spring Boot, Micronaut, gRPC, Kafka, ActiveMQ, PostgreSQL, MongoDB, Redis, Elasticsearch, Docker, Kubernetes, Helm, AWS';
+      else if (val === 'experience') pRes.innerHTML = 'OMD (2024-now) · Energize Global Services (2023-2024) · I-Tech (2022-2023) · Codeex (2020-2022) · Smart Code trainer (2023-2024) · PicsArt trainee (2020)';
+      else if (val === 'cv') { pRes.innerHTML = 'Downloading Aghasi_Khachatryan_CV.pdf ...'; window.location.href = 'Aghasi_Khachatryan_CV.pdf'; }
+      else if (val === 'contact') pRes.innerHTML = 'Email: aghasikhachatryan04@gmail.com | Phone: +374 94 657895 | Yerevan, Armenia (UTC+4)';
       else if (val === 'clear') { termOutput.innerHTML = ''; return; }
       else if (val === 'exit') { overlay.classList.add('hidden'); return; }
       else if (val !== '') pRes.innerHTML = `zsh: command not found: ${val}`;
