@@ -1,0 +1,2142 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Tokens
+
+   Near-greyscale on near-black. The three accents are not three independent
+   accents — they are stops on one continuous ramp used by a single object (the
+   hero point cloud). Everywhere else, mint alone is the signal colour.
+   ========================================================================== */
+
+@theme {
+  --color-bg: #08090b;
+  --color-surface: #0d0f12;
+  --color-line: #1a1d21;
+  --color-line-bright: #262a2f;
+
+  /* Contrast against --color-bg, all AA or better at the sizes each is used:
+     fg 18.0:1 · fg-2 7.2:1 · fg-3 5.9:1. The old #5e646b tested at 2.96:1,
+     which failed AA for the micro-labels that use it most. */
+  --color-fg: #f2f3f5;
+  --color-fg-2: #9ba1a6;
+  --color-fg-3: #8a9199;
+
+  --color-mint: #6ee7b7;
+  --color-blue: #60a5fa;
+  --color-violet: #a78bfa;
+
+  /* Same stack as the original site: Space Grotesk, Inter fallback, Fira Code. */
+  --font-display: var(--font-display), var(--font-body), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: var(--font-display), var(--font-body), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, monospace;
+}
+
+/**
+ * Light theme.
+ *
+ * Vesper is dark-only, so there is nothing to copy here — this is a warm-paper
+ * counterpart derived from it. The accents are re-picked rather than reused:
+ * #6ee7b7 on white is 1.4:1 and unreadable, so the signal colour is darkened to
+ * hold 4.9:1 while staying recognisably the same mint.
+ *
+ * Contrast on --color-bg: fg 15.8:1 · fg-2 8.1:1 · fg-3 4.7:1 · mint 4.9:1.
+ */
+:root[data-theme='light'] {
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-line: #e6e6e1;
+  --color-line-bright: #d3d3cc;
+
+  --color-fg: #14161a;
+  --color-fg-2: #4a5056;
+  --color-fg-3: #6b7178;
+
+  --color-mint: #0b7a5c;
+  --color-blue: #2563eb;
+  --color-violet: #7c3aed;
+}
+
+/**
+ * Surface tints.
+ *
+ * Every hover and inset surface goes through these rather than a literal
+ * `white N%`. Lightening is invisible on paper, so on light they flip to
+ * darkening — without this, every hover state in the page silently does nothing
+ * in light mode.
+ */
+:root {
+  --tint-row: color-mix(in srgb, white 3%, transparent);
+  --tint-hover: color-mix(in srgb, white 7%, transparent);
+  --tint-track: color-mix(in srgb, white 4%, transparent);
+  --edge: color-mix(in srgb, white 10%, transparent);
+  --edge-soft: color-mix(in srgb, white 6%, transparent);
+}
+
+:root[data-theme='light'] {
+  --tint-row: color-mix(in srgb, #101418 4%, transparent);
+  --tint-hover: color-mix(in srgb, #101418 8%, transparent);
+  --tint-track: color-mix(in srgb, #101418 7%, transparent);
+  --edge: color-mix(in srgb, #101418 12%, transparent);
+  --edge-soft: color-mix(in srgb, white 70%, transparent);
+}
+
+/* Type scale — seven sizes, no others. Stepped up one notch from the original
+   set: 15px body is fine on a 1440 laptop and small on anything larger, and the
+   11px micro-labels were doing real work at a size meant for asides. */
+:root {
+  --step--1: 0.8125rem; /* 13px  micro-labels */
+  --step-0: 0.9375rem; /* 15px  mono data */
+  --step-1: 1.0625rem; /* 17px  body */
+  --step-2: 1.5rem; /* 24px  row headings */
+  --step-3: 2.25rem; /* 36px  section headings */
+  /* Capped so the longest word still fits the left column of the hero grid —
+     past ~5rem "Harutyunyan" is wider than the column it lives in. */
+  --step-4: clamp(2.5rem, 6vw, 5rem); /* hero */
+  --step-nav: 0.9375rem; /* 15px  nav pill, held down so it stays one line */
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+* {
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: var(--step-1);
+  /* Weight scales inversely with size on this page: the 80px hero stays Light
+     because thin type reads as deliberate at display sizes, while body copy
+     takes Regular. Light-on-dark also renders visually thinner than the same
+     weight dark-on-light, so 300 here was genuinely under-inked, not just a
+     preference. */
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-mint) 26%, transparent);
+  color: var(--color-fg);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-mint);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-bright);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fg-3);
+}
+
+.shell {
+  width: 100%;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* Uppercase bracketed mono label — the recurring structural device. */
+.micro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-fg-3);
+}
+
+.micro svg {
+  flex: none;
+  /* Optical alignment: the cap height of 11px uppercase sits slightly above
+     the centre of a 13px icon box. */
+  translate: 0 -0.5px;
+}
+
+/* ===== Skip link ===== */
+.skip-link {
+  position: fixed;
+  top: 0.65rem;
+  left: 50%;
+  z-index: 200;
+  translate: -50% -180%;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font-size: var(--step-1);
+  text-decoration: none;
+  transition: translate 0.18s;
+}
+.skip-link:focus-visible {
+  translate: -50% 0;
+}
+
+/* ===== Reading progress ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 100%;
+  height: 1px;
+  background: var(--color-mint);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Ambient bloom
+
+   The reference has a dark teal light source bleeding from the lower left
+   rather than a flat black field. Two fixed radial gradients, no animation.
+   ========================================================================== */
+
+.bloom {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60rem 40rem at 8% 96%,
+      color-mix(in srgb, #0e5f63 34%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      48rem 36rem at 88% 4%,
+      color-mix(in srgb, #123a6b 24%, transparent),
+      transparent 72%
+    );
+}
+
+/* On paper the same glow reads as a stain, so it drops to a faint cool tint. */
+:root[data-theme='light'] .bloom {
+  background:
+    radial-gradient(
+      60rem 40rem at 8% 96%,
+      color-mix(in srgb, #7fd4d0 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      48rem 36rem at 88% 4%,
+      color-mix(in srgb, #9db8e8 18%, transparent),
+      transparent 72%
+    );
+}
+
+
+
+
+/* ==========================================================================
+   Spotlight
+
+   A radial highlight that follows the pointer across a card, driven by CSS
+   custom properties written from one listener on the grid. `--spot` gates the
+   opacity so the glow fades rather than snapping on.
+   ========================================================================== */
+
+[data-spot] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-spot]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    16rem circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--color-mint) 16%, transparent),
+    transparent 60%
+  );
+  opacity: var(--spot, 0);
+  transition: opacity 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-spot]::before {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Aurora backdrop
+
+   Three large, heavily blurred blobs drifting behind everything. Animated with
+   transform only, so it stays on the compositor and never triggers layout.
+   ========================================================================== */
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.aurora-blob[data-b='1'] {
+  width: 46rem;
+  height: 46rem;
+  top: -14rem;
+  left: -10rem;
+  background: color-mix(in srgb, var(--color-mint) 26%, transparent);
+}
+.aurora-blob[data-b='2'] {
+  width: 40rem;
+  height: 40rem;
+  top: 38%;
+  right: -12rem;
+  background: color-mix(in srgb, var(--color-violet) 24%, transparent);
+}
+.aurora-blob[data-b='3'] {
+  width: 38rem;
+  height: 38rem;
+  bottom: -12rem;
+  left: 28%;
+  background: color-mix(in srgb, var(--color-blue) 22%, transparent);
+}
+
+/* Paper needs far less of it, or the panels turn muddy. */
+:root[data-theme='light'] .aurora-blob {
+  filter: blur(100px);
+  /* Held up, not down: this is the only thing the light-mode glass has to
+     refract, and at 0.5 it was invisible under the panels. */
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-blob[data-b='1'] {
+    animation: drift-a 34s ease-in-out infinite;
+  }
+  .aurora-blob[data-b='2'] {
+    animation: drift-b 43s ease-in-out infinite;
+  }
+  .aurora-blob[data-b='3'] {
+    animation: drift-c 38s ease-in-out infinite;
+  }
+  @keyframes drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(14vw, 8vh, 0) scale(1.12); }
+  }
+  @keyframes drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-11vw, -9vh, 0) scale(1.16); }
+  }
+  @keyframes drift-c {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-8vw, 6vh, 0) scale(1.09); }
+  }
+}
+
+/* ==========================================================================
+   Glass
+
+   One shared surface treatment. Panels are mostly transparent with a real
+   blur, so the point cloud and the corner bloom read through every surface as
+   soft colour rather than being sealed behind opaque cards.
+
+   The blur is what makes this work: a low-opacity panel with no blur puts
+   sharp moving dots directly behind text, which is unreadable. Frosting turns
+   the same背景 into a wash.
+   ========================================================================== */
+
+:root {
+  --glass-bg: color-mix(in srgb, var(--color-bg) 52%, transparent);
+  --glass-bg-strong: color-mix(in srgb, var(--color-bg) 74%, transparent);
+  --glass-blur: blur(26px) saturate(1.9);
+  /* A brighter top edge is what actually sells a pane of glass — it reads as
+     light catching the lip. */
+  --glass-edge: color-mix(in srgb, white 14%, transparent);
+}
+
+:root[data-theme='light'] {
+  /* Lower than it looks like it should be: a pane over paper only reads as
+     glass if the colour behind it comes through. At 62% white the aurora was
+     completely masked and the panels looked like flat cards. */
+  --glass-bg: color-mix(in srgb, white 42%, transparent);
+  --glass-bg-strong: color-mix(in srgb, white 68%, transparent);
+  --glass-edge: color-mix(in srgb, white 95%, transparent);
+}
+
+/* On dark, glass separates from the page by being lighter than it. On light it
+   has to separate by casting a shadow and catching a lit edge instead. */
+:root[data-theme='light'] .section > .shell,
+:root[data-theme='light'] .panel,
+:root[data-theme='light'] .core-card,
+:root[data-theme='light'] .code-window {
+  border-color: color-mix(in srgb, #1a2330 14%, transparent);
+  box-shadow:
+    inset 0 1px 0 var(--glass-edge),
+    0 2px 4px color-mix(in srgb, #1a2330 4%, transparent),
+    0 18px 44px color-mix(in srgb, #1a2330 12%, transparent);
+}
+
+/* Sections sit on glass panels rather than directly on the page, so the bloom
+   behind them stays visible the whole way down. */
+.section > .shell {
+  position: relative;
+  border-radius: 20px;
+  padding-block: clamp(2rem, 4vw, 3.25rem);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--edge);
+  box-shadow:
+    inset 0 1px 0 var(--glass-edge),
+    0 24px 60px color-mix(in srgb, black 22%, transparent);
+}
+
+/* Row-grid surfaces read as panes inside the glass, not opaque tiles. */
+/* No blur here: these sit inside `.section > .shell`, which has already
+   frosted the backdrop. Re-blurring an already-blurred surface costs a full
+   compositing pass per element and changes almost nothing on screen — this
+   page had 24 of them stacked. */
+.cred {
+  background: var(--glass-bg);
+}
+
+.creds {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.contact-cell {
+  background: var(--glass-bg);
+}
+
+.contact-grid {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* The mobile menu is a full-bleed sheet, so it needs the strong tier or the
+   links sit on top of the page behind them. */
+.nav-sheet {
+  background: var(--glass-bg-strong);
+}
+
+.footer {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* ==========================================================================
+   Nav — floating pill
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+  border: 1px solid var(--color-line-bright);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 1px 0 0 var(--edge-soft) inset;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1rem;
+  font-size: var(--step-nav);
+  color: var(--color-fg);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: var(--color-fg-2);
+  font-size: var(--step-nav);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover {
+  color: var(--color-fg);
+  background: var(--tint-row);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.1rem;
+}
+
+.nav-cta {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  color: var(--color-fg);
+  font-size: var(--step-nav);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nav-cta:hover {
+  background: var(--tint-hover);
+  border-color: var(--color-fg-3);
+}
+
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--color-line-bright);
+  border-radius: 999px;
+  background: none;
+  color: var(--color-fg);
+  cursor: pointer;
+}
+
+/* Mobile sheet */
+.nav-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.25rem;
+  padding: 6rem clamp(1.5rem, 8vw, 4rem);
+  background: color-mix(in srgb, var(--color-bg) 96%, transparent);
+  backdrop-filter: blur(24px);
+}
+.nav-sheet a {
+  padding: 0.6rem 0;
+  color: var(--color-fg);
+  font-size: var(--step-3);
+  font-weight: 300;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-sheet a:hover {
+  color: var(--color-mint);
+}
+
+@media (max-width: 860px) {
+  .nav-links,
+  .nav-cta {
+    display: none;
+  }
+  .nav-burger {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+/* The canvas sits behind the copy and bleeds off the right edge, as in the
+   reference — the object is cropped by the viewport, not politely contained. */
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-canvas canvas {
+  pointer-events: auto;
+}
+
+/* Two columns: identity left, code window right, point cloud behind both. */
+.hero-main {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.hero-id {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Big enough to hold its own against an 88px headline. A 104px portrait next to
+   type this size reads as an afterthought. */
+.hero-avatar {
+  width: clamp(6rem, 9vw, 9.5rem);
+  aspect-ratio: 1;
+  height: auto;
+  flex: none;
+  border-radius: 999px;
+  object-fit: cover;
+  /* One hairline ring and a soft mint halo, instead of the old spinning conic
+     rainbow — that was competing with the hero object for attention. */
+  border: 1px solid var(--color-line-bright);
+  padding: 4px;
+  background: var(--color-bg);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-mint) 10%, transparent),
+    0 0 40px color-mix(in srgb, var(--color-mint) 12%, transparent);
+  transition: box-shadow 0.35s, scale 0.35s;
+}
+
+.hero-avatar:hover {
+  scale: 1.03;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-mint) 40%, transparent),
+    0 0 60px color-mix(in srgb, var(--color-mint) 22%, transparent);
+}
+
+@media (max-width: 980px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 8rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+  .hero-id {
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+}
+
+.hero-title {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  /* The one place Light survives: at 40–80px the thin stroke is the point. */
+  font-weight: 300;
+  line-height: 1;
+  /* Space Grotesk is already fairly narrow, so it needs less negative tracking
+     than a wider grotesque would at this size. */
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+/* Blinking underscore, carried over from the previous site's terminal voice —
+   the one piece of that identity worth keeping. */
+.hero-caret {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.07em;
+  margin-left: 0.12em;
+  vertical-align: 0.06em;
+  background: var(--color-mint);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-caret {
+    animation: blink 1.2s steps(1) infinite;
+    animation-delay: 2s;
+  }
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.5rem;
+  padding: 0.45rem 1rem 0.45rem 0.8rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  color: var(--color-fg-3);
+}
+
+.hero-status-value {
+  color: var(--color-mint);
+}
+
+/* Rotating role line. Reserves a fixed height so the layout below it never
+   shifts as the text types and deletes. */
+.hero-type {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 1.6em;
+  margin-top: 1.5rem;
+  color: var(--color-fg-2);
+}
+
+.hero-prompt {
+  color: var(--color-mint);
+  flex: none;
+}
+
+.type-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.12em;
+  vertical-align: -0.18em;
+  background: var(--color-fg-3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .type-caret {
+    animation: caret 1s steps(1) infinite;
+  }
+  @keyframes caret {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+/* Visually hidden, still announced. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  color: var(--color-fg);
+  font-size: var(--step-1);
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-ghost:hover {
+  background: var(--tint-hover);
+  border-color: var(--color-fg-3);
+}
+
+/* ===== Per-character entrance =====
+   Base state is visible; only the no-preference block hides and animates, so
+   reduced motion and any CSS failure both fall back to plain text. */
+/* Every character is its own inline-block, which means a line break can fall
+   between any two letters. `nowrap` on the word puts that back — without it,
+   "Harutyunyan" splits as "Haruty / unyan" as soon as the column gets tight. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .char {
+    opacity: 0;
+    animation: blurUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  @keyframes blurUp {
+    from {
+      opacity: 0;
+      translate: 0 0.42em;
+      filter: blur(12px);
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+      filter: blur(0);
+    }
+  }
+}
+
+/* Lower band: hairline rule, statement left, paragraph right, rail beneath. */
+/* The canvas fills the whole hero, so the band needs its own backdrop —
+   otherwise the point cloud runs contour lines straight through the paragraph. */
+.hero-band {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--color-line);
+  padding-block: 1.5rem 1.75rem;
+  background: color-mix(in srgb, var(--color-bg) 62%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+.hero-band-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.hero-statement {
+  max-width: 42ch;
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+}
+
+.hero-note {
+  max-width: 40ch;
+  justify-self: end;
+  color: var(--color-fg-2);
+  font-size: var(--step-1);
+}
+
+.hero-rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero-rail-dot {
+  color: var(--color-line-bright);
+}
+
+/* Lights up while its region of the hero object is hovered. */
+.rail-item {
+  transition: color 0.2s;
+}
+.rail-item[data-active='true'] {
+  color: var(--color-mint);
+}
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font-size: var(--step-1);
+  font-weight: 400;
+  text-decoration: none;
+  transition: background 0.15s, translate 0.15s;
+}
+.btn-solid:hover {
+  background: #fff;
+  translate: 0 -1px;
+}
+
+@media (max-width: 860px) {
+  .hero-band-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .hero-note {
+    justify-self: start;
+  }
+  .btn-solid {
+    margin-left: 0;
+  }
+  .hero-copy {
+    padding-top: 8rem;
+  }
+  /* The separators read as stray marks once the rail wraps to one item a line. */
+  .hero-rail-dot {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Code window
+   ========================================================================== */
+
+/* Frosted glass. The heavy blur is the point: it turns the point cloud behind
+   into soft washes of coloured light, so the animation stays visible while the
+   code stays readable. A low-opacity panel with no blur does the opposite —
+   sharp moving dots directly behind the text. */
+.code-window {
+  min-width: 0;
+  border: 1px solid var(--edge);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-bg) 26%, transparent);
+  backdrop-filter: blur(22px) saturate(1.7);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  overflow: hidden;
+  box-shadow:
+    0 28px 70px color-mix(in srgb, black 42%, transparent),
+    inset 0 1px 0 var(--edge-soft);
+}
+
+:root[data-theme='light'] .code-window {
+  border-color: color-mix(in srgb, #1a2030 12%, transparent);
+  background: color-mix(in srgb, white 44%, transparent);
+  box-shadow:
+    0 20px 50px color-mix(in srgb, #1a2030 14%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 65%, transparent);
+}
+
+.code-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 0.9rem;
+  /* Slightly more opaque than the body so it still reads as a title bar. */
+  background: color-mix(in srgb, var(--color-bg) 22%, transparent);
+  border-bottom: 1px solid var(--edge-soft);
+}
+
+:root[data-theme='light'] .code-bar {
+  background: color-mix(in srgb, white 34%, transparent);
+  border-bottom-color: color-mix(in srgb, #1a2030 10%, transparent);
+}
+
+.code-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+}
+.code-dot[data-c='r'] {
+  background: #ff8080;
+}
+.code-dot[data-c='y'] {
+  background: #ffc799;
+}
+.code-dot[data-c='g'] {
+  background: var(--color-mint);
+}
+
+.code-file {
+  margin-left: auto;
+  font-size: var(--step--1);
+  color: var(--color-fg-3);
+}
+
+.code-body {
+  margin: 0;
+  padding: 1.15rem 1.25rem 1.4rem;
+  font-size: var(--step-0);
+  line-height: 1.75;
+  color: var(--color-fg-2);
+  /* Long string literals shouldn't force a horizontal scrollbar on mobile. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+.tok-kw {
+  color: var(--color-violet);
+}
+.tok-type {
+  color: var(--color-blue);
+}
+.tok-str {
+  color: var(--color-mint);
+}
+.tok-field {
+  color: #ffc799;
+}
+.tok-num {
+  color: #ffc799;
+}
+
+/* The warm accents are legible on near-black but not on paper. */
+:root[data-theme='light'] .tok-field,
+:root[data-theme='light'] .tok-num {
+  color: #a35a17;
+}
+
+@media (max-width: 520px) {
+  .code-body {
+    font-size: var(--step--1);
+    padding: 0.9rem 1rem 1.1rem;
+  }
+}
+
+/* ==========================================================================
+   Theme toggle
+   ========================================================================== */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+  margin-left: 0.35rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  color: var(--color-fg-2);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.theme-toggle:hover {
+  color: var(--color-fg);
+  background: var(--tint-hover);
+  border-color: var(--color-fg-3);
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+/* ==========================================================================
+   Trace waterfall — the signature element
+   ========================================================================== */
+
+.trace-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-fg-3);
+}
+
+/* Shares the summary row's grid so the ticks line up with the bars by
+   construction — a hand-tuned margin drifts the moment a column changes. */
+.trace-axis {
+  display: none;
+  grid-template-columns: 2.25rem var(--label-col) 1fr 4.5rem;
+  gap: 0.75rem;
+}
+
+.trace-axis-track {
+  position: relative;
+  height: 1.5rem;
+}
+
+.trace-tick {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  color: var(--color-fg-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.trace-tick::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 1.4rem;
+  width: 1px;
+  height: 0.3rem;
+  background: var(--color-line-bright);
+}
+
+.span {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.span > summary {
+  display: grid;
+  grid-template-columns: 2.25rem var(--label-col) 1fr 4.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.9rem;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.15s;
+}
+.span > summary::-webkit-details-marker {
+  display: none;
+}
+.span > summary:hover {
+  background: var(--tint-row);
+}
+
+.span-idx {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-fg-3);
+}
+
+.span-label {
+  min-width: 0;
+}
+
+.span-role {
+  display: block;
+  font-weight: 500;
+  font-size: var(--step-1);
+  color: var(--color-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.span-org {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-fg-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Proportional track. The bar's left/width come straight from the dates, so a
+   three-month role genuinely looks like a three-month role. */
+.span-track {
+  position: relative;
+  height: 0.5rem;
+  border-radius: 2px;
+  background: var(--tint-track);
+}
+
+.span-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 3px;
+  border-radius: 2px;
+  background: var(--color-fg-3);
+  transform-origin: left center;
+  transition: background 0.2s;
+}
+
+.span > summary:hover .span-bar {
+  background: var(--color-fg-2);
+}
+
+/* The one open span gets the signal colour and the only looping animation. */
+.span-bar[data-open='true'] {
+  background: var(--color-mint);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-mint) 45%, transparent);
+}
+
+.span-bar[data-open='true']::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -0.45rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  translate: 0 -50%;
+  border-radius: 999px;
+  background: var(--color-mint);
+  animation: ping 2s ease-out infinite;
+}
+
+@keyframes ping {
+  0% {
+    opacity: 1;
+    scale: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+    scale: 2.6;
+  }
+}
+
+.span-dur {
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--color-fg-2);
+}
+
+.span-detail {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.75rem;
+  padding-bottom: 1.5rem;
+}
+
+.span-detail-body {
+  max-width: 62ch;
+}
+
+.span-detail p {
+  color: var(--color-fg-2);
+}
+
+.span-range {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-fg-3);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  color: var(--color-fg-2);
+  white-space: nowrap;
+}
+
+.tag img {
+  width: 0.8125rem;
+  height: 0.8125rem;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+/* Chevron */
+.span-chev {
+  transition: rotate 0.2s;
+  color: var(--color-fg-3);
+}
+.span[open] .span-chev {
+  rotate: 90deg;
+}
+
+/* The track column is the first thing to go on narrow screens — the labels and
+   durations carry the information, the bar is the flourish. */
+.trace {
+  --label-col: minmax(0, 22rem);
+}
+
+@media (min-width: 861px) {
+  .trace-axis {
+    display: grid;
+  }
+  .trace {
+    --label-col: 22rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .span > summary {
+    grid-template-columns: 2.25rem 1fr auto;
+  }
+  .span-track {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Span detail — nesting, annotations, impact
+   ========================================================================== */
+
+/* A client engagement sits inside its employer span, exactly as a child span
+   sits inside its parent in a real trace. */
+.span[data-depth='1'] > summary {
+  padding-left: 1.25rem;
+}
+
+.span-branch {
+  margin-right: 0.5rem;
+  color: var(--color-fg-3);
+  font-family: var(--font-mono);
+}
+
+.span-bar[data-depth='1'] {
+  height: 0.3rem;
+  top: 0.1rem;
+  bottom: 0.1rem;
+}
+
+.span-live {
+  margin-left: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--color-mint) 35%, transparent);
+  border-radius: 999px;
+  color: var(--color-mint);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: 0.08em;
+}
+
+.span-context {
+  color: var(--color-fg-2);
+}
+
+/* Overlapping dates look like an error unless the reason is stated, and the CV
+   states it — so the note travels with the span. */
+.span-note {
+  margin-top: 0.5rem;
+  color: var(--color-fg-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.7;
+}
+
+.span-points {
+  margin-top: 0.9rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.span-points li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.45rem;
+  color: var(--color-fg-2);
+}
+
+.span-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.4rem;
+  height: 1px;
+  background: var(--color-fg-3);
+}
+
+/* ==========================================================================
+   Stack — two tiers
+   ========================================================================== */
+
+/* Contained inside the section panel, not full-bleed. Bleeding it to 100vw put
+   the cards outside the glass panel's rounded boundary, which read as broken.
+   The mask fades both ends so the loop seam is never visible. */
+.marquee {
+  width: 100%;
+  /* Headroom for the hover lift and its shadow. `overflow` clips at the padding
+     box, so without this the card's raised top edge is cut off the moment it
+     lifts. */
+  padding-block: 0.9rem 1.5rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-radius: 14px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4.5rem,
+    black calc(100% - 4.5rem),
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4.5rem,
+    black calc(100% - 4.5rem),
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-set {
+  display: flex;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    /* Exactly -50%: one full set, so the second lands where the first began. */
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from {
+      translate: 0 0;
+    }
+    to {
+      translate: -50% 0;
+    }
+  }
+}
+
+/* No animation means no loop to see, so it becomes a scrollable row instead. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+}
+
+.core-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 14rem;
+  flex: none;
+  padding: 1.25rem 1.15rem;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--edge);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  transition: border-color 0.2s, translate 0.2s, background 0.2s;
+}
+.core-card:hover {
+  border-color: color-mix(in srgb, var(--color-mint) 45%, transparent);
+  background: var(--glass-bg-strong);
+  translate: 0 -5px;
+  box-shadow:
+    inset 0 1px 0 var(--glass-edge),
+    0 18px 40px color-mix(in srgb, black 30%, transparent);
+}
+
+.core-card img {
+  width: 1.875rem;
+  height: 1.875rem;
+  object-fit: contain;
+  margin-bottom: 0.55rem;
+  transition: scale 0.3s cubic-bezier(0.16, 1, 0.3, 1), rotate 0.3s;
+  transform-origin: left center;
+}
+.core-card:hover img {
+  scale: 1.18;
+  rotate: -4deg;
+}
+
+.core-card:hover .core-note {
+  color: var(--color-mint);
+}
+.core-note {
+  transition: color 0.25s;
+}
+
+.core-name {
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.core-note {
+  font-size: var(--step-0);
+  color: var(--color-fg-3);
+}
+
+/* Long tail: grouped text, not pills. Middots separate items so the words
+   themselves can be full size instead of every one carrying a border. */
+.skills {
+  border-top: 1px solid var(--color-line);
+}
+
+.skill-row {
+  display: grid;
+  /* Measured: the longest label, "testing & performance", needs 228px
+     (14.25rem) at this size and tracking. Anything less and it overflows
+     the column and collides with the first item. */
+  grid-template-columns: 14.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.15rem 1rem 1.15rem 0.85rem;
+  border-bottom: 1px solid var(--color-line);
+  border-radius: 10px;
+  transition: background 0.2s, padding-left 0.2s;
+}
+.skill-row:hover {
+  background: var(--tint-row);
+  padding-left: 1.15rem;
+}
+
+/* Sized to the items it labels. At --step-0 it read as a footnote next to
+   17px content, which made the row look unbalanced rather than structured. */
+.skill-label {
+  /* Top-aligned, nudged onto the first text line. Centring it against a block
+     that may be one or two lines tall is what made the rows look ragged. */
+  align-self: start;
+  padding-top: 0.12rem;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-fg-2);
+  transition: color 0.2s;
+}
+.skill-row:hover .skill-label {
+  color: var(--color-mint);
+}
+
+/* Each entry is its own hover target, so scanning 70-odd items gives
+   feedback instead of reading as inert text. */
+.skill-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: default;
+  transition: color 0.18s;
+}
+
+/* Brand marks where one exists — they act as anchors for the eye scanning a
+   long row, so they are held slightly back rather than competing with the text. */
+.skill-item img {
+  width: 1.0625rem;
+  height: 1.0625rem;
+  flex: none;
+  object-fit: contain;
+  opacity: 0.75;
+  transition: opacity 0.18s, scale 0.18s;
+}
+.skill-item:hover img {
+  opacity: 1;
+  scale: 1.15;
+}
+.skill-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 1px;
+  background: var(--color-mint);
+  scale: 0 1;
+  transform-origin: left center;
+  transition: scale 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-item:hover {
+  color: var(--color-mint);
+}
+.skill-item:hover::after {
+  scale: 1 1;
+}
+
+/* Wraps, deliberately.
+   One line per row is only achievable here by hiding the overflow behind a
+   scroll — and a reader cannot act on what they cannot see. So the strip wraps
+   and every entry stays on screen. What made wrapping look untidy before was
+   the label: it was two sizes smaller than the content and vertically centred
+   against a two-line block, so nothing aligned. It now matches the item size
+   and sits on the first line. */
+.skill-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0;
+  row-gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--color-fg);
+}
+
+.skill-items > span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.skill-sep {
+  margin-inline: 0.5rem;
+  color: var(--color-line-bright);
+}
+
+@media (max-width: 760px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .skill-label {
+    align-self: start;
+  }
+}
+
+/* ==========================================================================
+   Open source
+   ========================================================================== */
+
+.project {
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.project-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.project-name {
+  font-size: var(--step-2);
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
+.project-link {
+  color: var(--color-mint);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.project-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-summary {
+  max-width: 78ch;
+  color: var(--color-fg-2);
+}
+
+/* ==========================================================================
+   Education & certifications
+   ========================================================================== */
+
+.creds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1px;
+  background: var(--color-line);
+  border: 1px solid var(--color-line);
+}
+
+.cred {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.4rem 1.25rem;
+  background: var(--color-bg);
+  transition: background 0.15s;
+}
+.cred:hover {
+  background: var(--tint-row);
+}
+
+.cred-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: none;
+  border: 1px solid var(--color-line-bright);
+  border-radius: 999px;
+  color: var(--color-mint);
+}
+
+.cred-title {
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+
+.cred-org {
+  margin-top: 0.25rem;
+  color: var(--color-fg-2);
+  font-size: var(--step-1);
+}
+
+.cred-meta {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: var(--step--1);
+  color: var(--color-fg-3);
+}
+
+/* ==========================================================================
+   About
+   ========================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.about-lead {
+  max-width: 54ch;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+/* Three glass panels instead of cramped monospace rows — each fact gets a
+   heading, a coloured mark, and room to be read. */
+.panels {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.panel {
+  padding: 1.25rem 1.35rem;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--edge);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
+/* Each mark carries its own hue, so the three panels are distinguishable at a
+   glance rather than three identical grey rows. */
+.panel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  flex: none;
+  border-radius: 8px;
+}
+.panel-icon[data-tone='blue'] {
+  color: var(--color-blue);
+  background: color-mix(in srgb, var(--color-blue) 14%, transparent);
+}
+.panel-icon[data-tone='amber'] {
+  color: #f0a35e;
+  background: color-mix(in srgb, #f0a35e 14%, transparent);
+}
+.panel-icon[data-tone='violet'] {
+  color: var(--color-violet);
+  background: color-mix(in srgb, var(--color-violet) 14%, transparent);
+}
+
+.panel-value {
+  font-size: var(--step-1);
+  color: var(--color-fg);
+}
+
+.panel-note {
+  margin-top: 0.3rem;
+  color: var(--color-fg-3);
+}
+
+/* ===== Languages ===== */
+.langs {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.langs li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.flag {
+  flex: none;
+  border-radius: 3px;
+  /* A hairline keeps the white band of the Russian flag from bleeding into a
+     light background. */
+  box-shadow: 0 0 0 1px var(--edge);
+}
+
+.lang-name {
+  font-size: var(--step-1);
+  color: var(--color-fg);
+}
+
+.lang-level {
+  margin-left: auto;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  font-size: var(--step--1);
+  color: var(--color-fg-2);
+}
+
+/* ===== Domain chips ===== */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  font-size: var(--step-0);
+  color: var(--color-fg-2);
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Repos
+   ========================================================================== */
+
+.repos {
+  border-top: 1px solid var(--color-line);
+}
+
+.repo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0.25rem;
+  border-bottom: 1px solid var(--color-line);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s, padding-left 0.15s;
+}
+.repo:hover {
+  background: var(--tint-row);
+  padding-left: 0.75rem;
+}
+
+.repo-name {
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  color: var(--color-fg);
+}
+.repo:hover .repo-name {
+  color: var(--color-mint);
+}
+
+.repo-desc {
+  max-width: 70ch;
+  margin-top: 0.3rem;
+  /* Real prose, so it takes the body colour rather than the meta colour. */
+  color: var(--color-fg-2);
+  font-size: var(--step-1);
+}
+
+.repo-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-fg-3);
+  white-space: nowrap;
+}
+
+.repo-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.repo-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+
+/* Six cells, sized so they always fill whole rows.
+
+   The original 13rem track fits five per row at 1440, which strands the sixth
+   alone and reads as a layout bug. Tightening to 12rem fits all six in one
+   strip, but 193px of mono is narrower than a 17-character GitHub handle, so
+   `mailtokhachatryan` broke with a one-letter orphan. 20rem resolves to three
+   columns instead: a filled 3x2 block with room for the longest value, and it
+   steps 3 -> 2 -> 1 as the viewport narrows, so six cells never leave a
+   partial row. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  border-top: 1px solid var(--color-line);
+  border-left: 1px solid var(--color-line);
+}
+
+.contact-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.contact-cell:hover {
+  background: var(--tint-row);
+}
+.contact-cell:hover .contact-value {
+  color: var(--color-mint);
+}
+
+.contact-value {
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  color: var(--color-fg);
+  overflow-wrap: anywhere;
+  transition: color 0.15s;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  position: relative;
+  z-index: 1;
+  padding-block: 2.5rem 3.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-mint);
+}
+
+.status-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-mint);
+  box-shadow: 0 0 10px var(--color-mint);
+}
+
+/* ==========================================================================
+   Motion
+
+   One orchestrated entrance, then nothing. Reveals are opt-in via a class the
+   observer adds, and the base state is fully visible so a JS failure or a
+   crawler still sees every word.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .reveal {
+    opacity: 0;
+    translate: 0 12px;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      translate 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-in {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Children cascade in sequence once their container enters. `--i` is set
+     inline per item, so a row's delay comes from its position rather than from
+     a JS timer, and the whole group shares one observer. */
+  .reveal-ready .reveal-item {
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.985;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      translate 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      scale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 55ms);
+  }
+  .reveal.is-in .reveal-item {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+
+  /* Section headings wipe up from behind their own baseline rather than fading,
+     which reads as typeset rather than faded in. */
+  .reveal-ready .section-title {
+    clip-path: inset(0 0 110% 0);
+    translate: 0 0.2em;
+    transition: clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      translate 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .section-head.is-in .section-title {
+    clip-path: inset(-25% 0 -25% 0);
+    translate: 0 0;
+  }
+
+  /* The eyebrow arrives from the opposite side to the heading, so the two read
+     as one movement closing on the rule between them. */
+  .reveal-ready .section-head .micro {
+    opacity: 0;
+    translate: 14px 0;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+      translate 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  }
+  .section-head.is-in .micro {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .span-bar {
+    animation: draw 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  @keyframes draw {
+    from {
+      scale: 0 1;
+      opacity: 0;
+    }
+    to {
+      scale: 1 1;
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
