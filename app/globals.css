@@ -2140,3 +2140,7 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+.cred-title a:hover { color: var(--color-mint); }
+.cred-verify { display: inline-block; margin-top: 0.6rem; color: var(--color-mint); text-decoration: underline; text-underline-offset: 3px; }
+.cred-verify:focus-visible, .cred-title a:focus-visible { outline: 2px solid var(--color-mint); outline-offset: 4px; }

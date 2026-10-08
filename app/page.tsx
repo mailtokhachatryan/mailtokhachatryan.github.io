@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import AiEngineering from '@/components/AiEngineering'
 import TraceWaterfall from '@/components/TraceWaterfall'
 import Projects from '@/components/Projects'
 import Stack from '@/components/Stack'
@@ -34,6 +35,7 @@ export default function Page() {
       <Nav />
       <main id="content">
         <Hero nowYm={nowYm} />
+        <AiEngineering />
         <TraceWaterfall nowYm={nowYm} />
         <Projects />
         <Stack />
