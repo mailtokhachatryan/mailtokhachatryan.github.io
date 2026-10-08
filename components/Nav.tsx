@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 import ThemeToggle from './ThemeToggle'
 
 const LINKS = [
+  { href: '#ai', label: 'AI' },
   { href: '#trace', label: 'Work' },
   { href: '#projects', label: 'Projects' },
   { href: '#stack', label: 'Stack' },
-  { href: '#education', label: 'Education' },
+  { href: '#education', label: 'Credentials' },
   { href: '#about', label: 'About' },
 ]
 

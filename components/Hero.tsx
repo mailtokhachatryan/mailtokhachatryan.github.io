@@ -89,6 +89,7 @@ export default function Hero({ nowYm }: { nowYm: string }) {
               'Go concurrency · goroutines',
               'Tick-level market data at OMD',
               'Distributed systems on AWS',
+              'Agentic SDLC · team AI enablement',
             ]}
             label={`${PROFILE.role}, ${tenure} of experience. Java, Go, Spring Boot, Micronaut and distributed systems on AWS.`}
           />

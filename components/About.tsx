@@ -30,7 +30,7 @@ export default function About({ nowYm }: { nowYm: string }) {
             query tuning. Currently building OMD&rsquo;s tick-level market-data
             platform on Java 21, Micronaut and Go; previously led architecture
             decisions and code review across e-commerce teams, and taught the
-            Java backend curriculum at Smart Code.
+            Java backend curriculum at Smart Code. I also built an agentic SDLC workflow now used by my team in daily development, combining reusable skills, MCP integrations, test-first implementation and human approval gates.
           </p>
 
           <SpotlightGroup className="panels reveal">

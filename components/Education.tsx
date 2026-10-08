@@ -45,11 +45,15 @@ export default function Education() {
                 <Icon name="certificate" size={18} />
               </span>
               <div>
-                <h3 className="cred-title">{cert.name}</h3>
+                <h3 className="cred-title">
+                  {cert.url ? <a href={cert.url} target="_blank" rel="noopener noreferrer">{cert.name}</a> : cert.name}
+                </h3>
                 <p className="cred-org">{cert.issuer}</p>
                 {cert.year && (
                   <span className="cred-meta mono">{cert.year}</span>
                 )}
+                {cert.expires && <span className="cred-meta mono">Valid through {cert.expires}</span>}
+                {cert.url && <a className="cred-verify" href={cert.url} target="_blank" rel="noopener noreferrer" aria-label={`Verify ${cert.name}`}>Verify credential ↗</a>}
                 {cert.skills && (
                   <span className="cred-meta mono">
                     {cert.skills.join(' · ')}
@@ -64,6 +68,7 @@ export default function Education() {
             </article>
           ))}
         </SpotlightGroup>
+        <p className="cred-org">Professional development: preparing for an Anthropic certification.</p>
       </div>
     </section>
   )
