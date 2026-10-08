@@ -231,6 +231,9 @@ export const SPANS: Span[] = [
       'Built a custom API gateway, a centralized configuration service with Caffeine caching and dynamic reload, and data-migration services for scheduled and on-demand runs.',
       'Own a Go platform module built on goroutines, worker-pool patterns and sync primitives for high-throughput concurrent data processing.',
       'Standardized platform API contracts with contract-first OpenAPI and code generation, and authored reusable validation and exception-handling libraries now used by every service team.',
+      'Built tickwrite-sdlc, an internal Claude Code plugin used by the team in daily development: five skills, eight specialized subagents, hooks, a PowerShell state CLI and onboarding documentation.',
+      'Maintains workspace and service CLAUDE.md / AGENTS.md instructions; integrated Jira/Confluence, codebase impact analysis and library documentation through MCP.',
+      'Implemented ticket-scoped plan approval, service boundaries, failing-test evidence and generated-source protection, with local end-to-end checks and human merge-request review.',
       'Led team-wide adoption of Claude Code and OpenCode CLI to accelerate refactoring, test generation and documentation, keeping human review as the final quality gate.',
       'Instrumented services with structured logging and Grafana metrics, giving the team observability into production behaviour.',
       'Drove scalability and performance optimization through targeted refactoring and query tuning, tracking p95 / p99 latency to locate slow paths.',
@@ -566,6 +569,8 @@ export type Certification = {
   credential: string | null
   /** Skills the issuer attaches to a scored assessment. */
   skills?: string[]
+  url?: string
+  expires?: string
 }
 
 /**
@@ -576,6 +581,16 @@ export type Certification = {
  * under the issuer it reads as a footnote.
  */
 export const CERTIFICATIONS: Certification[] = [
+  {"name": "ChatGPT Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/1843ca2e-b8dd-41af-8c9e-383d8ff5555a", "expires": "Oct 2027"},
+  {"name": "Codex Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/3b1d93cb-88ee-4bb0-a47b-1ac0a182518a", "expires": "Oct 2027"},
+  {"name": "OpenAI Cyber Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/bd63a5af-a690-4a18-9f8f-f10f02888ec6#acc.vYdcKUMm", "expires": "Oct 2027"},
+  {"name": "ChatGPT Solutions Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/7d337959-a321-401f-8ff6-62a7fea2ddf3#acc.bzupN1cg", "expires": "Oct 2027"},
+  {"name": "OpenAI Consultative Solutions Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/7fac0709-addc-4413-aace-dbbadeaf442c#acc.r81yHpt9", "expires": "Oct 2027"},
+  {"name": "Codex Solutions Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/a8945357-d8d4-444b-8c4e-cb7e1b0da641#acc.XN8SR5ca", "expires": "Oct 2027"},
+  {"name": "OpenAI Cyber Solutions Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/99f99f3b-b3da-4cf1-8894-f2f931c843bb#acc.fkUFqxvg", "expires": "Oct 2027"},
+  {"name": "OpenAI Technical Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/ffb5b6a7-7d2b-44a8-b565-898585e6efc9#acc.9n41jSHF", "expires": "Oct 2027"},
+  {"name": "Certified Partner Specialist Gemini Enterprise Deployment", "issuer": "Google", "year": "Sep 2026", "credential": null, "url": "https://www.credly.com/badges/e50c82f9-2852-4653-b95f-88e84ef4b379/linked_in_profile", "expires": "Mar 2027"},
+  {"name": "Add Agents to Gemini Enterprise", "issuer": "Google", "year": "Sep 2026", "credential": null, "url": "https://www.credly.com/badges/28ce8ac4-54c5-4c6d-af74-bcc59e359ff6/linked_in_profile"},
   {
     name: 'Spring — 99th percentile',
     issuer: 'TestGorilla',
@@ -683,12 +698,12 @@ export const PROFILE = {
   phone: '+374 94 657895',
   github: 'https://github.com/mailtokhachatryan',
   githubUser: 'mailtokhachatryan',
-  linkedin: 'https://www.linkedin.com/in/aghasi-khachatryan-a07a6117a/',
+  linkedin: 'https://www.linkedin.com/in/aghasi-khachatryan/',
   linkedinHandle: 'aghasi-khachatryan',
   site: 'https://mailtokhachatryan.github.io',
   /** URL-safe copy in `public/`; `download` restores the readable filename. */
   cv: '/Aghasi-Khachatryan-CV.pdf',
-  cvFilename: 'Aghasi Khachatryan - Senior Backend Engineer - CV.pdf',
+  cvFilename: 'Aghasi Khachatryan - AI-Native Backend Engineer - CV.pdf',
   photo: '/aghasi-khachatryan.jpg',
   education: {
     school:
