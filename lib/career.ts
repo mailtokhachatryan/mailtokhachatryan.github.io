@@ -590,7 +590,7 @@ export const CERTIFICATIONS: Certification[] = [
   {"name": "OpenAI Cyber Solutions Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/99f99f3b-b3da-4cf1-8894-f2f931c843bb#acc.fkUFqxvg", "expires": "Oct 2027"},
   {"name": "OpenAI Technical Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/ffb5b6a7-7d2b-44a8-b565-898585e6efc9#acc.9n41jSHF", "expires": "Oct 2027"},
   {"name": "Certified Partner Specialist Gemini Enterprise Deployment", "issuer": "Google", "year": "Sep 2026", "credential": null, "url": "https://www.credly.com/badges/e50c82f9-2852-4653-b95f-88e84ef4b379/linked_in_profile", "expires": "Mar 2027"},
-  {"name": "Add Agents to Gemini Enterprise", "issuer": "Google", "year": "Sep 2026", "credential": null, "url": "https://www.credly.com/badges/28ce8ac4-54c5-4c6d-af74-bcc59e359ff6/linked_in_profile"},
+  {"name": "Certified Partner Specialist Gemini Enterprise Agent Development", "issuer": "Google Cloud", "year": "Sep 2026", "credential": null, "url": "https://www.credly.com/badges/982b566f-d47b-4a09-b243-20c810754dcd/linked_in?t=tm6ifp", "expires": "Mar 2027"},
   {
     name: 'Spring — 99th percentile',
     issuer: 'TestGorilla',
