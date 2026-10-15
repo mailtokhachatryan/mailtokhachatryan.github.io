@@ -581,6 +581,7 @@ export type Certification = {
  * under the issuer it reads as a footnote.
  */
 export const CERTIFICATIONS: Certification[] = [
+  {"name": "API Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 13, 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/4c171612-d194-4791-958f-65c7024aad58", "expires": "Oct 13, 2027"},
   {"name": "ChatGPT Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/1843ca2e-b8dd-41af-8c9e-383d8ff5555a", "expires": "Oct 2027"},
   {"name": "Codex Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/3b1d93cb-88ee-4bb0-a47b-1ac0a182518a", "expires": "Oct 2027"},
   {"name": "OpenAI Cyber Deployment Practitioner", "issuer": "OpenAI", "year": "Oct 2026", "credential": null, "url": "https://oaipartnernetwork.credential.net/bd63a5af-a690-4a18-9f8f-f10f02888ec6#acc.vYdcKUMm", "expires": "Oct 2027"},
